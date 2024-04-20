@@ -3,10 +3,7 @@ import aiohttp
 import asyncio
 from datetime import datetime,timedelta
 import pandas as pd
-
-# async def treatment(data):
-#     list = request(data)
-#     return await asyncio.gather(list)
+from timing import async_timed
 
 async def request(data, *args):
     async with aiohttp.ClientSession() as session:
@@ -21,6 +18,7 @@ async def request(data, *args):
                             list_dict[f"{value}"] ={'saleRate':dict['saleRate'], 'purchaseRate':dict['purchaseRate']}
     return (f"{data}:{list_dict}")
 
+@async_timed()
 async def main(day, *args):
     start_date = datetime.now()
     end_date = start_date - timedelta(days=day-1)
@@ -31,8 +29,6 @@ async def main(day, *args):
     for data in r:
         list.append(request(data, *args))
     return await asyncio.gather(*list)
-
-    
 
 if __name__ == "__main__":
     if platform.system() == 'Windows':

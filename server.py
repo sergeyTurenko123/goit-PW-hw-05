@@ -21,7 +21,7 @@ class Server:
         self.clients.remove(ws)
         logging.info(f'{ws.remote_address} disconnects')
 
-    async def send_to_clients(self, message: str):
+    async def send_to_clients(self, message: float):
         if self.clients:
             [await client.send(message) for client in self.clients]
 
@@ -36,7 +36,7 @@ class Server:
 
     async def distrubute(self, ws: WebSocketServerProtocol):
         async for message in ws:
-            await self.send_to_clients(f"{await mainp(1)}")
+            await self.send_to_clients(await mainp(message))
 
 
 async def main():

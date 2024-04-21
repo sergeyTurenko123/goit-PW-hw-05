@@ -19,7 +19,7 @@ async def request(data, *args):
     return (f"{data}:{list_dict}")
 
 @async_timed()
-async def main(day, *args):
+async def mainp(day):
     start_date = datetime.now()
     end_date = start_date - timedelta(days=day-1)
     r = pd.date_range(
@@ -27,12 +27,12 @@ async def main(day, *args):
     max(start_date, end_date)).strftime('%d.%m.%Y').tolist()
     list =[]
     for data in r:
-        list.append(request(data, *args))
+        list.append(request(data))
     return await asyncio.gather(*list)
 
 if __name__ == "__main__":
     if platform.system() == 'Windows':
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    result = asyncio.run(main(10))
+    result = asyncio.run(mainp(10))
     for r in result:
         print(r)

@@ -13,7 +13,7 @@ class Server:
     clients = set()
 
     async def register(self, ws: WebSocketServerProtocol):
-        ws.name = names.get_full_name()
+        # ws.name = names.get_full_name()
         self.clients.add(ws)
         logging.info(f'{ws.remote_address} connects')
 
@@ -36,7 +36,7 @@ class Server:
 
     async def distrubute(self, ws: WebSocketServerProtocol):
         async for message in ws:
-            await self.send_to_clients(f"{mainp(message)}")
+            await self.send_to_clients(f"{asyncio.run(mainp(message))}")
 
 
 async def main():

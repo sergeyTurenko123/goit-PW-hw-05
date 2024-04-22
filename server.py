@@ -21,7 +21,7 @@ class Server:
         self.clients.remove(ws)
         logging.info(f'{ws.remote_address} disconnects')
 
-    async def send_to_clients(self, message: int):
+    async def send_to_clients(self, message):
         if self.clients:
             [await client.send(message) for client in self.clients]
 

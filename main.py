@@ -19,9 +19,9 @@ async def request(data, *args):
     return (f"{data}:{list_dict}")
 
 @async_timed()
-async def mainp(day: int):
+async def mainp(day):
     start_date = datetime.now()
-    end_date = start_date - timedelta(days=day)
+    end_date = start_date - timedelta(days=day-1)
     r = pd.date_range(
     min(start_date, end_date),
     max(start_date, end_date)).strftime('%d.%m.%Y').tolist()

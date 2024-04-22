@@ -36,7 +36,8 @@ class Server:
 
     async def distrubute(self, ws: WebSocketServerProtocol):
         async for message in ws:
-            result = await mainp(float(message))
+            day, args = message.split()
+            result = await mainp(int(day), args)
             for r in result:
                 await self.send_to_clients(r)
 
